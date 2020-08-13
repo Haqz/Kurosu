@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+//        'beta_key/ajax/create_keys'
     ];
 }
