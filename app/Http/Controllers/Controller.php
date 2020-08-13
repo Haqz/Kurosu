@@ -10,4 +10,24 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    final public static function getStatusName(int $status = 1): string
+    {
+        switch ($status) {
+            case 0:
+                $statusName = 'error';
+                break;
+            case 2:
+                $statusName = 'warning';
+                break;
+            case 3:
+                $statusName = 'info';
+                break;
+            default:
+                $statusName = 'success';
+                break;
+        }
+
+        return $statusName;
+    }
 }

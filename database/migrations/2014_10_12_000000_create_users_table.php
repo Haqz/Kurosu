@@ -17,13 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('salt');
             $table->string('email')->unique();
             $table->integer('rank');
             $table->integer('allowed');
-            $table->date('latest_activity');
-            $table->date('silence_end');
-            $table->string('silence_reason');
+            $table->date('silence_end')->nullable();
+            $table->string('silence_reason')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

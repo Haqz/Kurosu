@@ -12,7 +12,7 @@
                 <a class="nav-link text-primary" href="index.php?p=3"><i class="fa fa-plus-circle"></i>	Sign up</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link text-primary" href="index.php?p=20"><i class="fa fa-key"></i>	Beta keys</a>
+                <a class="nav-link text-primary" href="{{route('beta_keys')}}"><i class="fa fa-key"></i>	Beta keys</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-primary" href="index.php?p=13"><i class="fa fa-trophy"></i>	Leaderboard</a>
