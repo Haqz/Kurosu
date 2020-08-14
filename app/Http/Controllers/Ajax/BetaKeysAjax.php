@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class BetaKeysAjax extends Controller
 {
@@ -32,6 +33,7 @@ class BetaKeysAjax extends Controller
             'is_allowed' => $request->input('is_allowed'),
             'is_public' => $request->input('is_public')
         ]);
+
         return response()->json([
             'status' => 200,
             'message' => 'Added beta key'
