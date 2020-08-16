@@ -28,3 +28,18 @@ Route::group(['prefix' => 'beta_keys', 'as' => 'beta_keys.'],
         );
     }
 );
+
+//TODO: Poprawić to by miało więcej sensu
+Route::group(['prefix' => 'auth', 'as' => 'auth.'],
+    function() : void{
+
+        Route::get('/logout', 'LoginController@logout')->name('logout');
+         Route::group(['prefix' => 'login', 'as' => 'login.'],
+             function() : void{
+                 Route::get('/', 'LoginController@index')->name('index');
+                 Route::post('/login', 'LoginController@attemptLogin')->name('login');
+
+             }
+         );
+    }
+);
