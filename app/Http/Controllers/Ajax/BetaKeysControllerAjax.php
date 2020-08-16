@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class BetaKeysAjax extends Controller
+class BetaKeysControllerAjax extends Controller
 {
     public function store(Request $request) : JsonResponse
     {

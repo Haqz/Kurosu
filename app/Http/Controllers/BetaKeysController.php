@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Entities\BetaKey;
 
-class BetaKeys extends Controller
+class BetaKeysController extends Controller
 {
     public function index()
     {

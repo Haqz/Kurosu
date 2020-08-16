@@ -13,16 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'Home@index')->name('index');
+Route::get('/', 'HomeController@index')->name('index');
 
 Route::group(['prefix' => 'beta_keys', 'as' => 'beta_keys.'],
     function() : void{
-        Route::get('/', 'BetaKeys@index')->name('index');
+        Route::get('/', 'BetaKeysController@index')->name('index');
 
         Route::group(['prefix' => 'ajax', 'as' => 'ajax.'],
             function() : void{
-                Route::post('/create_key', 'Ajax\BetaKeysAjax@store')->name('create_keys');
-                Route::get('/get_key/{id?}', 'Ajax\BetaKeysAjax@get')->name('get_keys');
+                Route::post('/create_key', 'Ajax\BetaKeysControllerAjax@store')->name('create_keys');
+                Route::get('/get_key/{id?}', 'Ajax\BetaKeysControllerAjax@get')->name('get_keys');
 
             }
         );

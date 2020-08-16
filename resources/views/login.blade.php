@@ -1,5 +1,5 @@
 @extends('body')
-@section('title', 'Beta Keys')
+@section('title', 'Login')
 
 @section('content')
 <div class="sixteen wide mobile eight wide tablet four wide computer centered  column">
