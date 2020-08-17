@@ -33,7 +33,7 @@ Route::group(['prefix' => 'beta_keys', 'as' => 'beta_keys.'],
 Route::group(['prefix' => 'auth', 'as' => 'auth.'],
     function() : void{
 
-        Route::get('/logout', 'LoginController@logout')->name('logout');
+        Route::get('/logout', ['middleware' => 'auth', 'uses' => 'LoginController@logout'] )->name('logout');
          Route::group(['prefix' => 'login', 'as' => 'login.'],
              function() : void{
                  Route::get('/', 'LoginController@index')->name('index');

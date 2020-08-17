@@ -15,7 +15,8 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            toastr()->error('This site is only accesible for logged users');
+            return route('index');
         }
     }
 }

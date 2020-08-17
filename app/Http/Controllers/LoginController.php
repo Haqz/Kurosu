@@ -21,7 +21,6 @@ class LoginController extends Controller
         ]);
 
         if ($validator->fails()) {
-            dd($validator->errors());
             return back()->with('errors', $validator->errors());
         }
         if(!User::where('username', $request->get('username'))->first()){
