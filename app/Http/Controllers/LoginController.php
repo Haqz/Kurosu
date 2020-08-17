@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -22,6 +23,9 @@ class LoginController extends Controller
         if ($validator->fails()) {
             dd($validator->errors());
             return back()->with('errors', $validator->errors());
+        }
+        if(!User::where('username', $request->get('username'))->first()){
+            return back()->with('error', 'No user found');
         }
         $user_data = [
             'username' => $request->get('username'),
