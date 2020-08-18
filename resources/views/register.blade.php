@@ -16,7 +16,7 @@
                     There were some errors with logging in
                 </div>
                 <ul class="list">
-                    @foreach($errors[0] as $error)
+                    @foreach($errors as $error)
                     <li>{{ $error }}</li>
                     @endforeach
                 </ul>
@@ -81,7 +81,7 @@
             </thead>
             <tbody>
             @foreach ($items as $item)
-                <tr class="@if($item->is_allowed) positive @else negative @endif">
+                <tr class="@if($item->is_allowed) positive @else negative @endif" >
                     <td class="center aligned" data-label="Key">{{ $item->key }}</td>
                     <td class="center aligned" data-label="Status"><i class="fa @if($item->is_allowed) fa-check @else fa-exclamation @endif"></i></td>
                 </tr>

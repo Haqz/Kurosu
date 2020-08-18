@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entities\BetaKey;
 use App\Entities\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -46,39 +47,31 @@ class AuthController extends Controller
     }
     public function attemptRegister(Request $request)
     {
-        $errors = [[]];
+        $errors = [];
         $validator = Validator::make($request->all(), [
-            'username' => 'required|alphaNum|min:4',
+            'username' => 'required|unique:users|alphaNum|min:4',
             'password' => 'required|min:3',
             'repeat-password' => 'required|min:3',
-            'email' => 'required|email',
-            'beta-key' => 'required',
+            'email' => 'required|unique:users|email',
+            'beta-key' => 'required|exists:beta_keys,key',
         ]);
 
         if ($validator->fails()) {
-            array_push($errors, $validator->errors()->all());
-        }
-        if(User::where('username', $request->get('username'))->first()){
-            array_push($errors[0], 'Username already exists');
-        }
-        if(User::where('email', $request->get('email'))->first()){
-            array_push($errors[0], 'Email already exists');
+            array_push($errors, Arr::flatten($validator->messages()->get('*')));
         }
         if($request->get('password') != $request->get('repeat-password')){
             array_push($errors[0], 'Passwords doesn\'t match');
         }
-        if(!BetaKey::where('key', $request->get('beta-key'))->first()){
-            array_push($errors[0], 'Incorrect beta-key');
-        }
-        if(BetaKey::select('is_allowed')->where('key', $request->get('beta-key'))->first()->is_allowed == false){
-            array_push($errors[0], 'Invalid beta-key');
-        }
-
-        if(count($errors[0])>0){
-            return back()->with('errors', $errors);
-        }
 
         $key = BetaKey::where('key', $request->get('beta-key'))->first();
+
+        if(!is_null($key) && $key->is_allowed == false){
+            array_push($errors[0], 'Invalid beta-key');
+        }
+        if(count($errors[0])>0){
+            return back()->with('errors', Arr::flatten($errors));
+        }
+
         $key->is_allowed = false;
         $key->save();
 
@@ -86,7 +79,7 @@ class AuthController extends Controller
             'username' => $request->get('username'),
             'password' => Hash::make($request->get('password')),
             'email' => $request->get('email'),
-            'rank' => 4,
+            'rank' => 1,
             'allowed' => 1
         ]);
         toastr()->success('Account created');

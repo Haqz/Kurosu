@@ -30,7 +30,9 @@
             <a class="item" href="index.php?p=21"><i class="fa fa-info-circle"></i>	About</a>
         </div>
     </div>
+        @if(Auth::check() && Auth::user()->rank > 2)
       <a class="item" href="index.php?p=2"><i class="fa fa-cog"></i>	<b>Admin Panel</b></a>
+        @endif
         @if(Auth::check())
             <div class="right menu">
                 <div class="ui dropdown item">
