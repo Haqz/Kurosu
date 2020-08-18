@@ -1,9 +1,9 @@
-<div class="ui inverted segment">
-    <div class="ui inverted secondary stackable menu">
+<div class="ui inverted segment" style="border-radius: 0 !important;">
+    <div class="ui inverted secondary stackable menu" >
         <a class="item" href="{{route('index')}}">	Kurosu</a>
         @if(!Auth::check())
             <a class="item" href="{{route('auth.login.index')}}"><i class="fa fa-sign-in"></i>	Login</a>
-            <a class="item" href="#"><i class="fa fa-plus-circle"></i>	Register</a>
+            <a class="item" href="{{ route('auth.register.index') }}"><i class="fa fa-plus-circle"></i>	Register</a>
             <a class="item" href="{{route('beta_keys.index')}}"><i class="fa fa-key"></i>	Beta keys</a>
         @endif
         <a class="item" href="index.php?p=2"><i class="fa fa-trophy"></i>	Leaderboard</a>

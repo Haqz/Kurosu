@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/1dcb22295f.js" crossorigin="anonymous"></script>
     @toastr_css
 </head>
-<body>
+<body style="background-color: #2d3748">
 @include('parts.nav')
 <br>
 <div class="ui grid">
