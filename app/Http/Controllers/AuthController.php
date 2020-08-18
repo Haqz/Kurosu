@@ -12,10 +12,18 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function loginIndex()
     {
         return view('login');
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function attemptLogin(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -40,14 +48,25 @@ class AuthController extends Controller
             return back()->with('error', 'Wrong details');
         }
     }
+
+    /**
+     * @return \Illuminate\View\View
+     */
     public function registerIndex()
     {
         $items = BetaKey::all();
         return view('register', ['items'=>$items]);
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function attemptRegister(Request $request)
     {
         $errors = [];
+        $key = BetaKey::where('key', $request->get('beta-key'))->first();
+
         $validator = Validator::make($request->all(), [
             'username' => 'required|unique:users|alphaNum|min:4',
             'password' => 'required|min:3',
@@ -62,9 +81,6 @@ class AuthController extends Controller
         if($request->get('password') != $request->get('repeat-password')){
             array_push($errors[0], 'Passwords doesn\'t match');
         }
-
-        $key = BetaKey::where('key', $request->get('beta-key'))->first();
-
         if(!is_null($key) && $key->is_allowed == false){
             array_push($errors[0], 'Invalid beta-key');
         }
@@ -85,6 +101,10 @@ class AuthController extends Controller
         toastr()->success('Account created');
         return redirect('/');
     }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function logout()
     {
         if(Auth::check()){
@@ -93,6 +113,10 @@ class AuthController extends Controller
             return redirect('/');
         }
     }
+
+    /**
+     * @return string
+     */
     public function username()
     {
         return 'username';
