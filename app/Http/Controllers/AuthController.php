@@ -27,19 +27,16 @@ class AuthController extends Controller
     public function attemptLogin(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
+            'username' => 'required|exists',
             'password' => 'required|min:3',
         ]);
 
         if ($validator->fails()) {
             return back()->with('errors', $validator->errors());
         }
-        if(!User::where('username', $request->get('username'))->first()){
-            return back()->with('error', 'No user found');
-        }
         $user_data = [
-            'username' => $request->get('username'),
-            'password' => $request->get('password')
+            'username' => $request->username,
+            'password' => $request->password
         ];
         if(Auth::attempt($user_data)){
             toastr()->success('Successfully logged in');
@@ -78,7 +75,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             array_push($errors, Arr::flatten($validator->messages()->get('*')));
         }
-        if($request->get('password') != $request->get('repeat-password')){
+        if($request->password != $request['repeat-password']){
             array_push($errors[0], 'Passwords doesn\'t match');
         }
         if(!is_null($key) && $key->is_allowed == false){
@@ -92,9 +89,9 @@ class AuthController extends Controller
         $key->save();
 
         User::insert([
-            'username' => $request->get('username'),
-            'password' => Hash::make($request->get('password')),
-            'email' => $request->get('email'),
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'email' => $request->email,
             'rank' => 1,
             'allowed' => 1
         ]);
