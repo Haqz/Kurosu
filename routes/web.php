@@ -33,11 +33,18 @@ Route::group(['prefix' => 'beta_keys', 'as' => 'beta_keys.'],
 Route::group(['prefix' => 'auth', 'as' => 'auth.'],
     function() : void{
 
-        Route::get('/logout', ['middleware' => 'auth', 'uses' => 'LoginController@logout'] )->name('logout');
+        Route::get('/logout', ['middleware' => 'auth', 'uses' => 'AuthController@logout'] )->name('logout');
          Route::group(['prefix' => 'login', 'as' => 'login.'],
              function() : void{
-                 Route::get('/', 'LoginController@index')->name('index');
-                 Route::post('/login', 'LoginController@attemptLogin')->name('login');
+                 Route::get('/', 'AuthController@loginIndex')->name('index');
+                 Route::post('/login', 'AuthController@attemptLogin')->name('login');
+
+             }
+         );
+         Route::group(['prefix' => 'register', 'as' => 'register.'],
+             function() : void{
+                 Route::get('/', 'AuthController@registerIndex')->name('index');
+                 Route::post('/login', 'AuthController@attemptRegister')->name('register');
 
              }
          );
