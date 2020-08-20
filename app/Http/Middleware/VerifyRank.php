@@ -17,7 +17,7 @@ class VerifyRank
     public function handle($request, Closure $next)
     {
         if(is_null(Auth::user()) || Auth::user()->rank < 3){
-            toastr()->error('You don\'t have permission to go there');
+            toastr()->error(__('main.rank_mismatch'));
             return redirect('/');
         }
         return $next($request);

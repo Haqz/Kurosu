@@ -34,10 +34,10 @@ class AuthController extends Controller
             'password' => $request->password
         ];
         if(Auth::attempt($user_data)){
-            toastr()->success('Successfully logged in');
+            toastr()->success(__('auth/main.login.success'));
             return redirect('/');
         } else{
-            return back()->with('error', 'Wrong details');
+            return back()->with('error', __('auth/main.login.failed'));
         }
     }
 
@@ -64,10 +64,10 @@ class AuthController extends Controller
         }
 
         if($request->password != $request['repeat-password']){
-            array_push($errors, 'Passwords doesn\'t match');
+            array_push($errors, __('auth/main.register.password_match'));
         }
         if(!is_null($key) && $key->is_allowed == false){
-            array_push($errors, 'Invalid beta-key');
+            array_push($errors, __('auth/main.register.beta-key_invalid'));
         }
         if(count($errors)>0){
             return back()->with('errors', Arr::flatten($errors));
@@ -83,7 +83,7 @@ class AuthController extends Controller
             'rank' => 1,
             'allowed' => 1
         ]);
-        toastr()->success('Account created');
+        toastr()->success(__('auth/main.register.success'));
         return redirect('/');
     }
 
@@ -94,7 +94,7 @@ class AuthController extends Controller
     {
         if(Auth::check()){
             Auth::logout();
-            toastr()->success('Successfully logged out');
+            toastr()->success(__('auth/main.logged_out'));
             return redirect('/');
         }
     }
