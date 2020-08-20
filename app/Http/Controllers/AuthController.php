@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Entities\BetaKey;
 use App\Entities\User;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -24,16 +26,9 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function attemptLogin(Request $request)
+    public function attemptLogin(LoginRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|exists',
-            'password' => 'required|min:3',
-        ]);
 
-        if ($validator->fails()) {
-            return back()->with('errors', $validator->errors());
-        }
         $user_data = [
             'username' => $request->username,
             'password' => $request->password
@@ -52,36 +47,29 @@ class AuthController extends Controller
     public function registerIndex()
     {
         $items = BetaKey::all();
-        return view('register', ['items'=>$items]);
+        return view('register', ['items' => $items]);
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function attemptRegister(Request $request)
+    public function attemptRegister(RegisterRequest $request)
     {
         $errors = [];
         $key = BetaKey::where('key', $request->get('beta-key'))->first();
 
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|unique:users|alphaNum|min:4',
-            'password' => 'required|min:3',
-            'repeat-password' => 'required|min:3',
-            'email' => 'required|unique:users|email',
-            'beta-key' => 'required|exists:beta_keys,key',
-        ]);
-
-        if ($validator->fails()) {
-            array_push($errors, Arr::flatten($validator->messages()->get('*')));
+        if($request->validator != null){
+            array_push($errors, Arr::flatten($request->validator->messages()->all()));
         }
+
         if($request->password != $request['repeat-password']){
-            array_push($errors[0], 'Passwords doesn\'t match');
+            array_push($errors, 'Passwords doesn\'t match');
         }
         if(!is_null($key) && $key->is_allowed == false){
-            array_push($errors[0], 'Invalid beta-key');
+            array_push($errors, 'Invalid beta-key');
         }
-        if(count($errors[0])>0){
+        if(count($errors)>0){
             return back()->with('errors', Arr::flatten($errors));
         }
 
