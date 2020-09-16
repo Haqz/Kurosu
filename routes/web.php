@@ -28,6 +28,12 @@ Route::group(['prefix' => 'beta_keys', 'as' => 'beta_keys.'],
         );
     }
 );
+Route::group(['prefix' => 'user', 'as' => 'user.'],
+    function() : void{
+        Route::get('/{id}', 'User\ProfileController@index')->name('index');
+        Route::post('/test', 'User\ProfileController@test')->name('test');
+    }
+);
 
 //TODO: Poprawić to by miało więcej sensu
 Route::group(['prefix' => 'auth', 'as' => 'auth.'],
@@ -48,5 +54,14 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'],
 
              }
          );
+    }
+);
+Route::group(['prefix' => 'admin', 'as' => 'admin.'],
+    function() : void{
+        Route::group(['prefix' => 'panel', 'as' => 'panel.'],
+            function() : void{
+                Route::get('/', 'AuthController@loginIndex')->name('index');
+            }
+        );
     }
 );

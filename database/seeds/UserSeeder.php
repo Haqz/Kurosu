@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
         }
         error_log('admin password: '.$password);
         DB::table('users')->insert([
+            'id' => 1000,
             'username' => 'admin',
             'password' => Hash::make($password),
             'email' => 'ku@ro.su',

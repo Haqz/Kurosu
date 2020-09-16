@@ -72,7 +72,7 @@
       </div>
     <div class="sixteen wide mobile eight wide tablet four wide computer column">
         <h1 class="ui teal header"><i class="fa fa-key"></i> Beta Keys</h1>
-        <table class="ui celled table">
+        <table class="ui celled table" id="beta-keys">
             <thead>
             <tr>
                 <th class="center aligned">Key</th>

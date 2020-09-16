@@ -1,0 +1,49 @@
+.ui.cards > .card > .content {
+  border: none !important;
+  border-top: none !important;
+}
+
+.ui.cards > .card {
+  box-shadow: none;
+}
+
+.ui.inverted.cards > .card {
+  box-shadow: none;
+}
+
+.ui.tab {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.ui.attached.segment {
+  border: none;
+}
+
+.ui.tabular.menu {
+  border: none;
+}
+
+.ui.tabular.menu .item {
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  flex: 1;
+  justify-content: center;
+}
+
+.ui.tabular.menu .active.item {
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  border: none;
+  border-radius: 0 !important;
+  margin-bottom: 0;
+}
+
+.ui.tabular.menu .item:hover {
+  color: white;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.ui.inverted.segment {
+  background: rgba(0, 0, 0, 0.5);
+}
+
