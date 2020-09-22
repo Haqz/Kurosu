@@ -39,7 +39,7 @@ class BetaKeysControllerAjax extends Controller
             'message' => 'Added beta key'
         ]);
     }
-    public function get(Request $request, int $id = null) : JsonResponse
+    public function get(Request $request, int $id = null, int $index_from = null, int $index_to = null) : JsonResponse
     {
         if(!is_null($id)){
             $items = BetaKey::where('id', $id)->first();

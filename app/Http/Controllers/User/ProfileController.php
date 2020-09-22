@@ -10,13 +10,10 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function __construct()
-    {
-    }
 
-    public function index(int $id)
+    public function index(int $id = null)
     {
-        if(isset($id)){
+        if($id != null){
             $user = User::where('id', $id)->with('stats')->first();
             if(!is_null($user)){
                 return view('user/profile', ['user'=> $user]);
@@ -26,11 +23,8 @@ class ProfileController extends Controller
             }
         } else{
             toastr()->error('No id provided');
+            return redirect('/');
         }
-    }
-    public function test(Request $request)
-    {
-        dd(Markdown::convertToHtml($request->opis));
     }
 
 }

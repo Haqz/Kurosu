@@ -191,20 +191,64 @@
                     <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
                 </div>
             </div>
-
+            <div class="ui inverted segment">
+                <h1>Best Scores</h1>
+                <table class="ui celled striped table" id="std_scores">
+                    <tbody>
+                    <tr>
+                        <td class="collapsing">
+                            <i class="folder icon"></i> node_modules
+                        </td>
+                        <td>Initial commit</td>
+                        <td class="right aligned collapsing">10 hours ago</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="folder icon"></i> test
+                        </td>
+                        <td>Initial commit</td>
+                        <td class="right aligned">10 hours ago</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="folder icon"></i> build
+                        </td>
+                        <td>Initial commit</td>
+                        <td class="right aligned">10 hours ago</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="file outline icon"></i> package.json
+                        </td>
+                        <td>Initial commit</td>
+                        <td class="right aligned">10 hours ago</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="file outline icon"></i> Gruntfile.js
+                        </td>
+                        <td>Initial commit</td>
+                        <td class="right aligned">10 hours ago</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
 @endsection
 @section('scripts')
 <script>
+    table = $('#std_scores')
+    index_from = 0;
+    index_to = 2;
     $.ajax({
-        url: 'http://kurosu_new.local/beta_keys/ajax/get_key',
+        url: 'http://kurosu_new.local/ajax/beta_keys/get_key',
         type: 'GET',
         success: function(response) {
-
-
-            console.log(response)
+            response.data.forEach((item, index) => {
+                table.find('tbody').append(`<tr><td>${item.id}</td><td>${item.key}</td><td>${item.is_allowed}</td></tr>`)
+            })
         }
     });
     $('.tabular.menu .item').tab();
