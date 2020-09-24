@@ -39,14 +39,12 @@
                 </div>
             </div>
             <div class="ui inverted segment">
-                <div class="ui equal width grid container">
-                    <div class="column" style="word-wrap: break-word">
-                            @if($user->stats->userpage_content)
-                                @markdown($user->stats->userpage_content)
-                            @else
-                                @markdown('## This user didn\'t provide his bio')
-                            @endif
-                    </div>
+                <div class="column" style="word-wrap: break-word">
+                        @if($user->stats->userpage_content)
+                            @markdown($user->stats->userpage_content)
+                        @else
+                            @markdown('## This user didn\'t provide his bio')
+                        @endif
                 </div>
             </div>
 
@@ -193,7 +191,7 @@
             </div>
             <div class="ui inverted segment" >
                 <h1>Best Scores</h1>
-                <div style="height:20em;overflow-x: scroll;">
+                <div style="height:30em;overflow-x: scroll;">
                     <table class="ui celled striped table" id="std_scores" data-loaded-scores="10">
                         <tbody>
                         @foreach($user_scores as $score)
@@ -218,15 +216,6 @@
     table = $('#std_scores')
     let index_from = 0;
     let index_to = 1;
-    {{--$.ajax({--}}
-    {{--    url: `http://kurosu_new.local/ajax/user/get_scores/{{$user->id}}?index_from=${index_from}&index_to=${index_to}`,--}}
-    {{--    type: 'GET',--}}
-    {{--    success: function(response) {--}}
-    {{--        response.data.forEach((item, index) => {--}}
-    {{--            table.find('tbody').append(`<tr><td>${item.id}</td><td>${item.max_combo}</td><td>${item.pp}</td></tr>`)--}}
-    {{--        })--}}
-    {{--    }--}}
-    {{--});--}}
 
     function addMore() {
         table.dimmer('show').addClass("loader");
