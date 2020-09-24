@@ -22,10 +22,15 @@ Route::group(['prefix' => 'beta_keys', 'as' => 'beta_keys.'],
 );
 Route::group(['prefix' => 'ajax', 'as' => 'ajax.'],
     function() : void {
-        Route::group(['prefix' => 'beta_keys', 'as' => 'beta_keys'],
+        Route::group(['prefix' => 'beta_keys', 'as' => 'beta_keys.'],
             function() : void{
                 Route::post('/create_key', 'Ajax\BetaKeysControllerAjax@store')->name('create_keys');
                 Route::get('/get_key/{id?}', 'Ajax\BetaKeysControllerAjax@get')->name('get_keys');
+            }
+        );
+        Route::group(['prefix' => 'user', 'as' => 'user.'],
+            function() : void{
+                Route::get('/get_scores/{user_id?}', 'Ajax\UserProfileControllerAjax@getScores')->name('get_scores');
             }
         );
     }

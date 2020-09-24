@@ -191,47 +191,23 @@
                     <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
                 </div>
             </div>
-            <div class="ui inverted segment">
+            <div class="ui inverted segment" >
                 <h1>Best Scores</h1>
-                <table class="ui celled striped table" id="std_scores">
-                    <tbody>
-                    <tr>
-                        <td class="collapsing">
-                            <i class="folder icon"></i> node_modules
-                        </td>
-                        <td>Initial commit</td>
-                        <td class="right aligned collapsing">10 hours ago</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="folder icon"></i> test
-                        </td>
-                        <td>Initial commit</td>
-                        <td class="right aligned">10 hours ago</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="folder icon"></i> build
-                        </td>
-                        <td>Initial commit</td>
-                        <td class="right aligned">10 hours ago</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="file outline icon"></i> package.json
-                        </td>
-                        <td>Initial commit</td>
-                        <td class="right aligned">10 hours ago</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="file outline icon"></i> Gruntfile.js
-                        </td>
-                        <td>Initial commit</td>
-                        <td class="right aligned">10 hours ago</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div style="height:20em;overflow-x: scroll;">
+                    <table class="ui celled striped table" id="std_scores" data-loaded-scores="10">
+                        <tbody>
+                        @foreach($user_scores as $score)
+                            <tr>
+                                <td>{{ $score->id }}</td>
+                                <td>{{ $score->max_combo }}</td>
+                                <td>{{ $score->pp }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <button class="ui button green loadMoreScores" onclick="addMore()">Load more</button>
             </div>
         </div>
     </div>
@@ -240,17 +216,42 @@
 @section('scripts')
 <script>
     table = $('#std_scores')
-    index_from = 0;
-    index_to = 2;
-    $.ajax({
-        url: 'http://kurosu_new.local/ajax/beta_keys/get_key',
-        type: 'GET',
-        success: function(response) {
-            response.data.forEach((item, index) => {
-                table.find('tbody').append(`<tr><td>${item.id}</td><td>${item.key}</td><td>${item.is_allowed}</td></tr>`)
-            })
-        }
-    });
+    let index_from = 0;
+    let index_to = 1;
+    {{--$.ajax({--}}
+    {{--    url: `http://kurosu_new.local/ajax/user/get_scores/{{$user->id}}?index_from=${index_from}&index_to=${index_to}`,--}}
+    {{--    type: 'GET',--}}
+    {{--    success: function(response) {--}}
+    {{--        response.data.forEach((item, index) => {--}}
+    {{--            table.find('tbody').append(`<tr><td>${item.id}</td><td>${item.max_combo}</td><td>${item.pp}</td></tr>`)--}}
+    {{--        })--}}
+    {{--    }--}}
+    {{--});--}}
+
+    function addMore() {
+        table.dimmer('show').addClass("loader");
+        let loadMoreScores = parseInt(table.attr('data-loaded-scores'));
+        console.log(loadMoreScores, typeof loadMoreScores, loadMoreScores + 10);
+        $.ajax({
+            url: `http://kurosu_new.local/ajax/user/get_scores/{{$user->id}}`,
+            type: 'GET',
+            data: {
+                loadedBefore: loadMoreScores,
+            },
+            success: function(response) {
+                response.data.forEach((item, index) => {
+                    table.find('tbody').append(`<tr><td>${item.id}</td><td>${item.max_combo}</td><td>${item.pp}</td></tr>`)
+                })
+
+                table.dimmer('hide').removeClass("loader");
+            }
+        }).then(() =>{
+            table.attr('data-loaded-scores', loadMoreScores + 10);
+
+        });
+    }
+
+
     $('.tabular.menu .item').tab();
 </script>
 @endsection
