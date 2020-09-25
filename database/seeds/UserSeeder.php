@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $password = '';
-        if(env('APP_ENV')){
+        if(env('APP_ENV') == 'local'){
             $password = 'admin_kurosu';
         } else{
             $password = Str::random(10);

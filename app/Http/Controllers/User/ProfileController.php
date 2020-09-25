@@ -6,8 +6,6 @@ namespace App\Http\Controllers\User;
 use App\Entities\User;
 use App\Entities\UserScores;
 use App\Http\Controllers\Controller;
-use GrahamCampbell\Markdown\Facades\Markdown;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -24,11 +22,11 @@ class ProfileController extends Controller
             if(!is_null($user)){
                 return view('user/profile', ['user'=> $user, 'user_scores' => $user_scores]);
             } else{
-                toastr()->error('User with that id not found');
+                toastr()->error(__('user/main.not_found'));
                 return back();
             }
         } else{
-            toastr()->error('No id provided');
+            toastr()->error(__('user/main.not_found'));
             return redirect('/');
         }
     }

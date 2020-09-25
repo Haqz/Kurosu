@@ -220,7 +220,6 @@
     function addMore() {
         table.dimmer('show').addClass("loader");
         let loadMoreScores = parseInt(table.attr('data-loaded-scores'));
-        console.log(loadMoreScores, typeof loadMoreScores, loadMoreScores + 10);
         $.ajax({
             url: `http://kurosu_new.local/ajax/user/get_scores/{{$user->id}}`,
             type: 'GET',
@@ -229,7 +228,7 @@
             },
             success: function(response) {
                 response.data.forEach((item, index) => {
-                    table.find('tbody').append(`<tr><td>${item.id}</td><td>${item.max_combo}</td><td>${item.pp}</td></tr>`)
+                    table.find('tbody').append(item.view)
                 })
 
                 table.dimmer('hide').removeClass("loader");
