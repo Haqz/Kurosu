@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Ajax;
 
 
+use App\Entities\User;
 use App\Entities\UserScores;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -49,6 +50,11 @@ class UserProfileControllerAjax extends Controller
                     $data = [];
                 }
 
+                foreach ($items as $item){
+                    $data[] = [
+                        'view' => view('user.parts.table_row', ['columns' => [$item->id, $item->max_combo, $item->pp]])->render()
+                    ];
+                }
                 return response()->json([
                     'status' => 200,
                     'data' => $data,
@@ -58,6 +64,18 @@ class UserProfileControllerAjax extends Controller
             return response()->json([
                 'status' => 403,
                 'error' => __('user/main.ajax.id_required'),
+            ]);
+        }
+    }
+
+    public function getStats(Request $request, int $user_id = null) : JsonResponse
+    {
+        if($user_id){
+            $items = User::where('id', $user_id)->with('stats')->first();
+
+            return response()->json([
+                'status' => 200,
+                'data' => $items,
             ]);
         }
     }

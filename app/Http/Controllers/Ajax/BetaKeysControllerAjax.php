@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Validator;
 
 class BetaKeysControllerAjax extends Controller
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
     public function store(Request $request) : JsonResponse
     {
         $validator = Validator::make($request->all(), [
@@ -38,6 +43,12 @@ class BetaKeysControllerAjax extends Controller
             'message' => 'Added beta key'
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @param int|null $id
+     * @return JsonResponse
+     */
     public function get(Request $request, int $id = null) : JsonResponse
     {
 

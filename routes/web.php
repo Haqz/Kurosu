@@ -31,6 +31,7 @@ Route::group(['prefix' => 'ajax', 'as' => 'ajax.'],
         Route::group(['prefix' => 'user', 'as' => 'user.'],
             function() : void{
                 Route::get('/get_scores/{user_id?}', 'Ajax\UserProfileControllerAjax@getScores')->name('get_scores');
+                Route::get('/get_stats/{user_id?}', 'Ajax\UserProfileControllerAjax@getStats')->name('get_stats');
             }
         );
     }

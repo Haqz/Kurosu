@@ -54,141 +54,24 @@
                 <a class="item" data-tab="Mania">Mania</a>
             </div>
             <div class="ui top attached tabular menu" style="background: rgba(0,0,0, 0); margin-top: 0;">
-                <a class="item"  data-tab="Relax">Relax</a>
-                <a class="item" data-tab="Autopilot">Autopilot</a>
+                <a class="item" style="cursor: not-allowed;"  data-tab="Relax">Relax</a>
+                <a class="item" style="cursor: not-allowed;" data-tab="Autopilot">Autopilot</a>
             </div>
-            <div class="ui bottom attached inverted active tab segment" data-tab="Standard">
-                <div class="ui equal width stackable centered grid  container">
+            @include('user.parts.segment', ['tab' => 'Standard','data' => [$user->stats->pp_std, $user->stats->ranked_score_std, $user->stats->total_score_std,
+                                                        $user->stats->playcount_std, $user->stats->replays_watched_std, $user->stats->total_hits_std,
+                                                         $user->stats->avg_accuracy_std]])
 
-                        <div class="column" style="word-wrap: break-word">1</div>
-                        <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaa</div>
-                        <div class=" column" style="word-wrap: break-word">
-                            <div class="ui centered inverted segment">
-                                <div class="ui inverted middle aligned divided list">
-                                    <div class="item">
-                                        <div class="right floated content">
-                                            #1
-                                        </div>
-                                        <div class="content">
-                                            Overall rank
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="right floated content">
-                                        </div>
-                                        <div class="content">
-                                            Country rank
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="right floated content">
-                                            {{$user->stats->pp_std}}
-                                        </div>
-                                        <div class="content">
-                                            PP
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="right floated content">
-                                            {{$user->stats->ranked_score_std}}
-                                        </div>
-                                        <div class="content">
-                                            Ranking score
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="right floated content">
-                                            {{$user->stats->total_score_std}}
-                                        </div>
-                                        <div class="content">
-                                            Overall score
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="right floated content">
-                                            {{$user->stats->playcount_std}}
-                                        </div>
-                                        <div class="content">
-                                            Playcount
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="right floated content">
+            @include('user.parts.segment', ['tab' => 'Taiko', 'data' => [$user->stats->pp_taiko, $user->stats->ranked_score_taiko, $user->stats->total_score_taiko,
+                                                        $user->stats->playcount_taiko, $user->stats->replays_watched_taiko, $user->stats->total_hits_taiko,
+                                                         $user->stats->avg_accuracy_taiko]])
 
-                                        </div>
-                                        <div class="content">
-                                            Max combo
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="right floated content">
+            @include('user.parts.segment', ['tab' => 'Mania', 'data' => [$user->stats->pp_mania, $user->stats->ranked_score_mania, $user->stats->total_score_mania,
+                                                        $user->stats->playcount_mania, $user->stats->replays_watched_mania, $user->stats->total_hits_mania,
+                                                         $user->stats->avg_accuracy_mania]])
 
-                                        </div>
-                                        <div class="content">
-                                            Followers
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="right floated content">
-                                            {{$user->stats->replays_watched_std}}
-                                        </div>
-                                        <div class="content">
-                                            Replays watched
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="right floated content">
-                                            {{$user->stats->total_hits_std}}
-                                        </div>
-                                        <div class="content">
-                                            Overall hits
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="right floated content">
-                                            {{$user->stats->avg_accuracy_std}}
-                                        </div>
-                                        <div class="content">
-                                            Accuracy
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-            <div class="ui bottom attached tab inverted segment" data-tab="Taiko">
-                <div class="ui equal width grid  container">
-
-                    <div class="column" style="word-wrap: break-word">2</div>
-                    <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaa</div>
-                    <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                </div>
-            </div>
-            <div class="ui bottom attached tab inverted segment" data-tab="Mania">
-                <div class="ui equal width grid  container">
-
-                    <div class="column" style="word-wrap: break-word">3</div>
-                    <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaa</div>
-                    <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                </div>
-            </div>
-            <div class="ui bottom attached tab inverted segment" data-tab="Relax">
-                <div class="ui equal width grid container">
-
-                    <div class="column" style="word-wrap: break-word">4</div>
-                    <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaa</div>
-                    <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                </div>
-            </div>
-            <div class="ui bottom attached tab inverted segment" data-tab="Autopilot">
-                <div class="ui equal width grid container">
-
-                    <div class="column" style="word-wrap: break-word">5</div>
-                    <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaa</div>
-                    <div class=" column" style="word-wrap: break-word">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                </div>
-            </div>
+{{--            @include('user.parts.segment', ['tab' => 'Relax', 'data' => [$user->stats->pp_relax, $user->stats->ranked_score_relax, $user->stats->total_score_relax,--}}
+{{--                                                        $user->stats->playcount_relax, $user->stats->replays_watched_relax, $user->stats->total_hits_relax,--}}
+{{--                                                         $user->stats->avg_accuracy_relax]])--}}
             <div class="ui inverted segment" >
                 <h1>Best Scores</h1>
                 <div style="height:30em;overflow-x: scroll;">
@@ -205,41 +88,11 @@
                     </table>
                 </div>
 
-                <button class="ui button green loadMoreScores" onclick="addMore()">Load more</button>
+                <button class="ui button green loadMoreScores" id="user-add_more" data-user-id="{{$user->id}}">Load more</button>
             </div>
         </div>
     </div>
-
 @endsection
 @section('scripts')
-<script>
-    table = $('#std_scores')
-    let index_from = 0;
-    let index_to = 1;
-
-    function addMore() {
-        table.dimmer('show').addClass("loader");
-        let loadMoreScores = parseInt(table.attr('data-loaded-scores'));
-        $.ajax({
-            url: `http://kurosu_new.local/ajax/user/get_scores/{{$user->id}}`,
-            type: 'GET',
-            data: {
-                loadedBefore: loadMoreScores,
-            },
-            success: function(response) {
-                response.data.forEach((item, index) => {
-                    table.find('tbody').append(item.view)
-                })
-
-                table.dimmer('hide').removeClass("loader");
-            }
-        }).then(() =>{
-            table.attr('data-loaded-scores', loadMoreScores + 10);
-
-        });
-    }
-
-
-    $('.tabular.menu .item').tab();
-</script>
+    <script src="{{asset('js/user/main.js')}}"></script>
 @endsection
