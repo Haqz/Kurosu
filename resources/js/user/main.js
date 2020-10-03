@@ -1,8 +1,5 @@
-$(document).ready(function(){
-    console.log($.fn.dimmer('show'))
+$(function () {
     table = $('#std_scores')
-    let index_from = 0;
-    let index_to = 1;
     function addMore(id = 1000) {
         table.dimmer('show').addClass("loader");
         let loadMoreScores = parseInt(table.attr('data-loaded-scores'));
@@ -26,19 +23,6 @@ $(document).ready(function(){
     $('#user-add_more').on('click',function (){
         addMore();
     })
-    // $('.tabular.menu .item').api({
-    //     on: 'now',
-    //     loadingDuration : 300,
-    //     action: 'get userpage',
-    //     urlData: {
-    //         id: 1000
-    //     },
-    //     onSuccess: function(response) {
-    //         console.log(response)
-    //     },
-    // }).tab();
-});
-$(function () {
-
+    $('.tabular.menu .item').tab();
 })
 
