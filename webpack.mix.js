@@ -11,5 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+/*
+Core
+ */
+mix.js('resources/js/core/*', 'public/js/core/main.js');
+/*
+User
+ */
+mix.js('resources/js/user/*', 'public/js/user/main.js');
+
+mix.js('semantic/dist/semantic.js', 'public/js')
+    .copy('semantic/dist/semantic.css', 'public/css')
     .sass('resources/sass/app.scss', 'public/css');

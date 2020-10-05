@@ -39,7 +39,7 @@
                     <i class="fa fa-question-circle"></i> {{ Auth::user()->username }}
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a class="item" href="index.php?u='.getUserID($_SESSION['username']).'"><i class="fa fa-user"></i> My profile</a>
+                        <a class="item" href="{{route('user.index',['id' => Auth::user()->id])}}"><i class="fa fa-user"></i> My profile</a>
                         <a class="item" href="index.php?p=26"><i class="fa fa-star"></i> Friendlist</a>
                         <div class="divider"></div>
                         <a class="item" href="index.php?p=5"><i class="fa fa-picture-o"></i> Change avatar</a>

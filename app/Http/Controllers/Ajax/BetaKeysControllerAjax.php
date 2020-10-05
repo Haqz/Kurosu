@@ -9,10 +9,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class BetaKeysControllerAjax extends Controller
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
     public function store(Request $request) : JsonResponse
     {
         $validator = Validator::make($request->all(), [
@@ -39,9 +43,15 @@ class BetaKeysControllerAjax extends Controller
             'message' => 'Added beta key'
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @param int|null $id
+     * @return JsonResponse
+     */
     public function get(Request $request, int $id = null) : JsonResponse
     {
-        if(!is_null($id)){
+        if($id){
             $items = BetaKey::where('id', $id)->first();
             return response()->json([
                 'status' => 200,

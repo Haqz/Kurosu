@@ -18,14 +18,28 @@ Route::get('/', 'HomeController@index')->name('index');
 Route::group(['prefix' => 'beta_keys', 'as' => 'beta_keys.'],
     function() : void{
         Route::get('/', 'BetaKeysController@index')->name('index');
-
-        Route::group(['prefix' => 'ajax', 'as' => 'ajax.'],
+    }
+);
+Route::group(['prefix' => 'ajax', 'as' => 'ajax.'],
+    function() : void {
+        Route::group(['prefix' => 'beta_keys', 'as' => 'beta_keys.'],
             function() : void{
                 Route::post('/create_key', 'Ajax\BetaKeysControllerAjax@store')->name('create_keys');
                 Route::get('/get_key/{id?}', 'Ajax\BetaKeysControllerAjax@get')->name('get_keys');
-
             }
         );
+        Route::group(['prefix' => 'user', 'as' => 'user.'],
+            function() : void{
+                Route::get('/get_scores/{user_id?}', 'Ajax\UserProfileControllerAjax@getScores')->name('get_scores');
+                Route::get('/get_stats/{user_id?}', 'Ajax\UserProfileControllerAjax@getStats')->name('get_stats');
+            }
+        );
+    }
+);
+Route::group(['prefix' => 'user', 'as' => 'user.'],
+    function() : void{
+        Route::get('/{id?}', 'User\ProfileController@index')->name('index');
+        Route::post('/test', 'User\ProfileController@test')->name('test');
     }
 );
 
@@ -48,5 +62,14 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'],
 
              }
          );
+    }
+);
+Route::group(['prefix' => 'admin', 'as' => 'admin.'],
+    function() : void{
+        Route::group(['prefix' => 'panel', 'as' => 'panel.'],
+            function() : void{
+                Route::get('/', 'AuthController@loginIndex')->name('index');
+            }
+        );
     }
 );

@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $password = '';
-        if(env('APP_ENV')){
+        if(env('APP_ENV') == 'local'){
             $password = 'admin_kurosu';
         } else{
             $password = Str::random(10);
@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
         }
         error_log('admin password: '.$password);
         DB::table('users')->insert([
+            'id' => 1000,
             'username' => 'admin',
             'password' => Hash::make($password),
             'email' => 'ku@ro.su',

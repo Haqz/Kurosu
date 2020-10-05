@@ -28,7 +28,6 @@ class CreateScoresTable extends Migration
             $table->integer('katus_count');
             $table->integer('gekis_count');
             $table->integer('miss_count');
-            $table->date('submited_at');
             $table->integer('completed');
             $table->float('accuracy');
             $table->float('pp');
