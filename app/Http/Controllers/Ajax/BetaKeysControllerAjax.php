@@ -51,8 +51,7 @@ class BetaKeysControllerAjax extends Controller
      */
     public function get(Request $request, int $id = null) : JsonResponse
     {
-
-        if(!is_null($id)){
+        if($id){
             $items = BetaKey::where('id', $id)->first();
             return response()->json([
                 'status' => 200,

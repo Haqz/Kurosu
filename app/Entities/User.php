@@ -35,6 +35,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function stats()
     {
         return $this->hasOne(UserStats::class, 'user_id', 'id');

@@ -29,14 +29,15 @@ class UserProfileControllerAjax extends Controller
                     ->take($this->increment)
                     ->get();
 
-                if($items->isEmpty()){
-                    $data = [];
+                $data = [];
+                if(!$items->isEmpty()){
+                    foreach ($items as $item){
+                        $data[] = [
+                            'view' => view('user.parts.table_row', ['columns' => [$item->id, $item->max_combo, $item->pp]])->render()
+                        ];
+                    }
                 }
-                foreach ($items as $item){
-                    $data[] = [
-                        'view' => view('user.parts.table_row', ['columns' => [$item->id, $item->max_combo, $item->pp]])->render()
-                    ];
-                }
+
                 return response()->json([
                     'status' => 200,
                     'data' => $data,
@@ -68,6 +69,11 @@ class UserProfileControllerAjax extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param int|null $user_id
+     * @return JsonResponse
+     */
     public function getStats(Request $request, int $user_id = null) : JsonResponse
     {
         if($user_id){

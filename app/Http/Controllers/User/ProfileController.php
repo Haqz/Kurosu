@@ -12,7 +12,7 @@ class ProfileController extends Controller
 
     public function index(int $id = null)
     {
-        if($id != null){
+        if($id){
             $user_scores = UserScores::where('user_id', $id)
                 ->orderBy('pp', 'DESC')
                 ->take(10)
